@@ -10,6 +10,7 @@ class Answer extends StatelessWidget {
 
       child: RaisedButton(
         color: Colors.blue,
+
       child: Text(answerText,style: TextStyle(
         fontSize: 16.0,
         fontStyle: FontStyle.italic
