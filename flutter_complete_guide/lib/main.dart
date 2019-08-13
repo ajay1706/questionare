@@ -13,7 +13,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   var _questionIndex = 0;
   final questions = const [
     {
@@ -31,21 +30,18 @@ class _MyAppState extends State<MyApp> {
   ];
 
   void _answerQuestion() {
+    setState(() {
+      _questionIndex += 1;
+    });
 
-     setState(() {
-       _questionIndex += 1;
-     });
-
-     print(_questionIndex);
-     if (_questionIndex<questions.length) {
-print("We have more questions");
-     }
-   }
-
+    print(_questionIndex);
+    if (_questionIndex < questions.length) {
+      print("We have more questions");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -53,20 +49,25 @@ print("We have more questions");
             title: Text("Sample"),
             centerTitle: true,
           ),
-          body: _questionIndex<questions.length ? Column(
-            children: [
-              Question(
-                questions[_questionIndex]['questionText'],
-              ),
-             ...(  questions[_questionIndex]['answers'] as List<String>).map((answer){
-             return Answer(_answerQuestion,answer);
-           }).toList()
-            ],
-          ): Center(child: Text("You did it",
-          style: TextStyle(
-            fontSize: 25.0,
-           fontWeight: FontWeight.w900
-          ),),),
+          body: _questionIndex < questions.length
+              ? Column(
+                  children: [
+                    Question(
+                      questions[_questionIndex]['questionText'],
+                    ),
+                    ...(questions[_questionIndex]['answers'] as List<String>)
+                        .map((answer) {
+                      return Answer(_answerQuestion, answer);
+                    }).toList()
+                  ],
+                )
+              : Center(
+                  child: Text(
+                    "You did it",
+                    style:
+                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.w900),
+                  ),
+                ),
         ));
   }
 }
