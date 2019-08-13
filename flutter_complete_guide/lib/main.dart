@@ -14,10 +14,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  int _totalScore = 0;
+
   final _questions = const [
     {
       'questionText': "What\'s your favorite color?",
-      'answers': ['Black', 'Blue', 'Red', 'Green']
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Blue', 'score': 5},
+        {'text': 'Red', 'score': 3},
+        {'text': 'Green', 'score': 12}
+      ]
     },
     {
       'questionText': "What\'s your favorite animal?",
@@ -29,7 +36,9 @@ class _MyAppState extends State<MyApp> {
     },
   ];
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore += score;
+
     setState(() {
       _questionIndex += 1;
     });
@@ -45,17 +54,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
-            title: Text("Sample"),
-            centerTitle: true,
-          ),
-          body: _questionIndex < _questions.length
-              ? Quiz(
-                  answerQuestion: _answerQuestion,
-                  questionIndex: _questionIndex,
-                  questions: _questions,
-                )
-              : Result()
-        ));
+            appBar: AppBar(
+              title: Text("Sample"),
+              centerTitle: true,
+            ),
+            body: _questionIndex < _questions.length
+                ? Quiz(
+                    answerQuestion: _answerQuestion,
+                    questionIndex: _questionIndex,
+                    questions: _questions,
+                  )
+                : Result()));
   }
 }
