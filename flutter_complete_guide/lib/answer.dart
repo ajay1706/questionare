@@ -7,10 +7,13 @@ class Answer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    width: double.infinity,
+
       child: RaisedButton(
         color: Colors.blue,
-      child: Text(answerText),
+      child: Text(answerText,style: TextStyle(
+        fontSize: 16.0,
+        fontStyle: FontStyle.italic
+      ),),
 onPressed: selectHandler,
 ),
     );

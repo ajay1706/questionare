@@ -13,32 +13,39 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   var _questionIndex = 0;
+  final questions = const [
+    {
+      'questionText': "What\'s your favorite color?",
+      'answers': ['Black', 'Blue', 'Red', 'Green']
+    },
+    {
+      'questionText': "What\'s your favorite animal?",
+      'answers': ['Rabbit', 'Pigeon', 'Cow', 'Fish']
+    },
+    {
+      'questionText': "Who\'s your favorite instructor?",
+      'answers': ['Max', 'Jhon', 'Ajay', 'Krish']
+    },
+  ];
 
   void _answerQuestion() {
-    setState(() {
-      _questionIndex += 1;
-    });
 
-    print(_questionIndex);
-  }
+     setState(() {
+       _questionIndex += 1;
+     });
+
+     print(_questionIndex);
+     if (_questionIndex<questions.length) {
+print("We have more questions");
+     }
+   }
+
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      {
-        'questionText': "What\'s your favorite color?",
-        'answers': ['Black', 'Blue', 'Red', 'Green']
-      },
-      {
-        'questionText': "What\'s your favorite animal?",
-        'answers': ['Rabbit', 'Pigeon', 'Cow', 'Fish']
-      },
-      {
-        'questionText': "Who\'s your favorite instructor?",
-        'answers': ['Max', 'Jhon', 'Ajay', 'Krish']
-      },
-    ];
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -46,7 +53,7 @@ class _MyAppState extends State<MyApp> {
             title: Text("Sample"),
             centerTitle: true,
           ),
-          body: Column(
+          body: _questionIndex<questions.length ? Column(
             children: [
               Question(
                 questions[_questionIndex]['questionText'],
@@ -55,7 +62,11 @@ class _MyAppState extends State<MyApp> {
              return Answer(_answerQuestion,answer);
            }).toList()
             ],
-          ),
+          ): Center(child: Text("You did it",
+          style: TextStyle(
+            fontSize: 25.0,
+           fontWeight: FontWeight.w900
+          ),),),
         ));
   }
 }
